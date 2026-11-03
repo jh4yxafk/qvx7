@@ -1,0 +1,16 @@
+name: Build EXE
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pyinstaller
+      - run: pyinstaller --onefile qvx7.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qvx7-exe
+          path: dist/qvx7.exe
